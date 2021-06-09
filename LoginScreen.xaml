@@ -1,0 +1,61 @@
+﻿<Window x:Class="Password_Manager.LoginScreen"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:local="clr-namespace:Password_Manager"
+        mc:Ignorable="d"
+        Title="Login" Height="450" Width="800" WindowStartupLocation="CenterScreen" WindowStyle="None" ResizeMode="NoResize">
+    <Grid MouseDown="Border_MouseDown">
+        <Grid.Background>
+            <LinearGradientBrush StartPoint="0.1,0" EndPoint="0.9,1">
+                <GradientStop Color="#39bae6" Offset="0"/>
+                <GradientStop Color="#6bedad" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        <Border Height="390" VerticalAlignment="Top" CornerRadius="0 0 180 0" Background="#151515" MouseDown="Border_MouseDown">
+        </Border>
+        <StackPanel Orientation="Horizontal">
+            <StackPanel Width="350" Orientation="Vertical">
+                <Image Source="/img/password-manager-logo.png" Height="256" VerticalAlignment="Top" Margin="30" RenderOptions.BitmapScalingMode="HighQuality"/>
+                <TextBlock Width="200" Height="50" Foreground="#b3b8c5" FontSize="36" TextAlignment="Center">Hash Guard</TextBlock>
+            </StackPanel>
+            <StackPanel Width="350">
+                <StackPanel Margin="20 40">
+                    <TextBlock Text="User Login" Margin="20" Foreground="#b3b8c5" TextAlignment="Center" FontSize="38"/>
+                    <StackPanel Orientation="Horizontal" Margin="10">
+                        <materialDesign:PackIcon Kind="User" Width="25" Height="25" Foreground="#b3b8c5"/>
+                        <TextBox x:Name="usernameField" Margin="10 0" materialDesign:HintAssist.Hint="Enter Username" Foreground="#b3b8c5" Width="250" MaxLength="50"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="10">
+                        <materialDesign:PackIcon Kind="Password" Width="25" Height="25" Foreground="#b3b8c5"/>
+                        <PasswordBox x:Name="passwordField" Margin="10 0 3 0" materialDesign:HintAssist.Hint="Enter Master Password" Foreground="#b3b8c5" Width="235"
+                                     PasswordChanged="passwordField_Changed"/>
+                        <materialDesign:PackIcon x:Name="passwordFieldWarning" Margin="0 4" Kind="Warning" Width="16" Height="16" Foreground="#e6b450" 
+                                                 ToolTip="We do not consider this password secure, &#x0a;but you may use it at your own risk." Visibility="Hidden"/>
+                    </StackPanel>
+                    <TextBlock Visibility="Hidden" Foreground="#ff3333" TextAlignment="Center" x:Name="textBlockWarning"></TextBlock>
+                    <StackPanel Margin="10" HorizontalAlignment="Center" Orientation="Horizontal">
+
+                        <Button Width="120" Height="40" Margin="10 0" Style="{StaticResource MaterialDesignRaisedButton}"
+                                materialDesign:ButtonAssist.CornerRadius="10" BorderThickness="2" BorderBrush="#e1af4b"
+                                Background="#e6b450" Foreground="#0a0e14" ToolTip="Login" x:Name="buttonSignUp" Click="buttonSignUp_Click" Content="Create User"
+                        />
+
+                        <Button Width="120" Height="40" Margin="10 0" Style="{StaticResource MaterialDesignRaisedButton}"
+                                materialDesign:ButtonAssist.CornerRadius="10" BorderThickness="2" BorderBrush="#e1af4b"
+                                Background="#e6b450" Foreground="#0a0e14" ToolTip="Login" x:Name="buttonLogin" Click="buttonLogin_Click" Content="Login"
+                        />
+                    </StackPanel>
+                </StackPanel>
+            </StackPanel>
+            <StackPanel Width="100">
+                <Button Margin="10 20" Style="{StaticResource MaterialDesignFloatingActionButton}" Background="{x:Null}"
+                        ToolTip="Close" x:Name="buttonExit" Click="buttonExit_Click">
+                    <materialDesign:PackIcon Kind="Close" Foreground="White" Width="30" Height="30"></materialDesign:PackIcon>
+                </Button>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Window>

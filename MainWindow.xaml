@@ -1,0 +1,204 @@
+﻿<Window x:Class="Password_Manager.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:local="clr-namespace:Password_Manager"
+        mc:Ignorable="d"
+        Title="Hash Guard" Height="800" Width="1400" 
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None" 
+        ResizeMode="NoResize">
+    <Grid>
+
+        <Grid.Background>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                <GradientStop Color="#39bae6" Offset="0"/>
+                <GradientStop Color="#6bedad" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+
+        <!--Title Bar-->
+        <StackPanel Height="74" VerticalAlignment="Top" Background="#191823" Orientation="Horizontal" MouseDown="Border_MouseDown">
+            <StackPanel Width="350" Orientation="Horizontal" HorizontalAlignment="Left">
+                <Image Source="/img/password-manager-logo.png" Height="64" VerticalAlignment="Top" Margin="20 5 20 5" RenderOptions.BitmapScalingMode="HighQuality"/>
+                <TextBlock Width="200" Height="40" Foreground="#b3b8c5" FontSize="32" TextAlignment="Center" VerticalAlignment="Center">Hash Guard</TextBlock>
+            </StackPanel>
+            <StackPanel Width="950" HorizontalAlignment="Center">
+                <TextBlock Width="900" Height="50" Foreground="#b3b8c5" FontSize="36" TextAlignment="Right" HorizontalAlignment="Right" x:Name="welcomeText" Margin="0 12 20 12">Welcome Back</TextBlock>
+            </StackPanel>
+            <StackPanel Width="100" HorizontalAlignment="Center">
+                <Button Margin="5 10" Style="{StaticResource MaterialDesignFloatingActionButton}" Background="{x:Null}"
+                        ToolTip="Close" x:Name="buttonExit" Click="buttonExit_Click">
+                    <materialDesign:PackIcon Kind="Close" Foreground="White" Width="30" Height="30"></materialDesign:PackIcon>
+                </Button>
+            </StackPanel>
+        </StackPanel>
+
+        <!--Side Menu-->
+        <StackPanel Height="720" Width="250" VerticalAlignment="Bottom" HorizontalAlignment="Left" Background="#20202c" Orientation="Vertical">
+            <StackPanel Height="540" Margin="0 20 0 0">
+                <Button Width="220" Height="60" Margin="15 5" Style="{StaticResource MaterialDesignRaisedButton}"
+                    materialDesign:ButtonAssist.CornerRadius="15" BorderThickness="2" BorderBrush="#191823"
+                    Background="#292d36" Foreground="#a8aebd" ToolTip="Home" x:Name="buttonHome" Click="buttonHome_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="Home" Width="32" Height="32" Foreground="#827db5" Margin="4"/>
+                        <TextBlock TextAlignment="Center" FontSize="24" Height="32">Home</TextBlock>
+                    </StackPanel>
+                </Button>
+
+                <Button Width="220" Height="60" Margin="15 5" Style="{StaticResource MaterialDesignRaisedButton}"
+                    materialDesign:ButtonAssist.CornerRadius="15" BorderThickness="2" BorderBrush="#191823"
+                    Background="#292d36" Foreground="#a8aebd" ToolTip="Add Account" x:Name="buttonAddAccount" Click="buttonAddAccount_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="PlusBold" Width="32" Height="32" Foreground="#a4bd00" Margin="4"/>
+                        <TextBlock TextAlignment="Center" FontSize="24" Height="32">Add Account</TextBlock>
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+
+
+            <StackPanel>
+                <Button Width="220" Height="60" Margin="15 5" Style="{StaticResource MaterialDesignRaisedButton}"
+                    materialDesign:ButtonAssist.CornerRadius="15" BorderThickness="2" BorderBrush="#191823"
+                    Background="#292d36" Foreground="#a8aebd" ToolTip="Save Backup" x:Name="buttonSaveBackup" Click="buttonSaveBackup_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="Export" Width="32" Height="32" Foreground="#91b362" Margin="4"/>
+                        <TextBlock TextAlignment="Center" FontSize="24" Height="32">Save Backup</TextBlock>
+                    </StackPanel>
+                </Button>
+
+                <Button Width="220" Height="60" Margin="15 5" Style="{StaticResource MaterialDesignRaisedButton}"
+                    materialDesign:ButtonAssist.CornerRadius="15" BorderThickness="2" BorderBrush="#191823"
+                    Background="#292d36" Foreground="#a8aebd" ToolTip="Load Backup" x:Name="buttonLoadBackup" Click="buttonLoadBackup_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="Import" Width="32" Height="32" Foreground="#6994bf" Margin="4"/>
+                        <TextBlock TextAlignment="Center" FontSize="24" Height="32">Load Backup</TextBlock>
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+        </StackPanel>
+
+        <!--Account List-->
+        <StackPanel Height="720" Width="1150" VerticalAlignment="Bottom" HorizontalAlignment="Right" Background="#151515" x:Name="AccountsListStackPanel">
+            <ScrollViewer Height="710" CanContentScroll="True">
+                <StackPanel Margin="0 10" x:Name="accountsStackPanel">
+                </StackPanel>
+            </ScrollViewer>
+        </StackPanel>
+        <StackPanel Height="720" Width="1150" VerticalAlignment="Bottom" HorizontalAlignment="Right" Background="#151515" x:Name="AccountDetailsStackPanel" Visibility="hidden">
+            <!--Account Name-->
+            <Grid Height="60" Margin="0 20 0 0" Background="#191823" Width="1100">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="10*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Height="50" FontSize="32" Grid.Column="0" Foreground="#b3b8c5" Margin="20 0" VerticalAlignment="Center" TextAlignment="Right">Account Name</TextBlock>
+                <TextBox Height="50" FontSize="32" Grid.Column="1" Foreground="#b3b8c5"  Margin="20 0" VerticalAlignment="Center" TextAlignment="Left" Background="#222130"
+                         BorderBrush="Transparent" Padding="10 0" x:Name="accountDetailsAccountName" MaxLength="60" TextChanged="updateSaveIcon"></TextBox>
+            </Grid>
+            <!--Account Url-->
+            <Grid Height="60" Margin="0 10 0 0" Background="#191823" Width="1100">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="10*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Height="50" FontSize="32" Grid.Column="0" Foreground="#b3b8c5" Margin="20 0" VerticalAlignment="Center" TextAlignment="Right">Url</TextBlock>
+                <TextBox Height="50" FontSize="32" Grid.Column="1" Foreground="#b3b8c5"  Margin="20 0" VerticalAlignment="Center" TextAlignment="Left" Background="#222130"
+                         BorderBrush="Transparent" Padding="10 0" x:Name="accountDetailsUrl" MaxLength="250" TextChanged="updateSaveIcon"></TextBox>
+            </Grid>
+            <!--Account Email-->
+            <Grid Height="60" Margin="0 10 0 0" Background="#191823" Width="1100">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="10*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Height="50" FontSize="32" Grid.Column="0" Foreground="#b3b8c5" Margin="20 0" VerticalAlignment="Center" TextAlignment="Right">Email</TextBlock>
+                <TextBox Height="50" FontSize="32" Grid.Column="1" Foreground="#b3b8c5"  Margin="20 0" VerticalAlignment="Center" TextAlignment="Left" Background="#222130"
+                         BorderBrush="Transparent" Padding="10 0" x:Name="accountDetailsEmail" MaxLength="254" TextChanged="updateSaveIcon"></TextBox>
+            </Grid>
+            <!--Account Username-->
+            <Grid Height="60" Margin="0 10 0 0" Background="#191823" Width="1100">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="10*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Height="50" FontSize="32" Grid.Column="0" Foreground="#b3b8c5" Margin="20 0" VerticalAlignment="Center" TextAlignment="Right">Username</TextBlock>
+                <TextBox Height="50" FontSize="32" Grid.Column="1" Foreground="#b3b8c5"  Margin="20 0" VerticalAlignment="Center" TextAlignment="Left" Background="#222130"
+                         BorderBrush="Transparent" Padding="10 0" x:Name="accountDetailsUsername" MaxLength="50" TextChanged="updateSaveIcon"></TextBox>
+            </Grid>
+            <!--Account Password-->
+            <Grid Height="60" Margin="0 10 0 0" Background="#191823" Width="1100">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="6*"/>
+                    <ColumnDefinition Width="17*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Height="50" FontSize="32" Grid.Column="0" Foreground="#b3b8c5" Margin="20 0" VerticalAlignment="Center" TextAlignment="Right">Password</TextBlock>
+                <PasswordBox Height="50" FontSize="32" Grid.Column="1" Foreground="#b3b8c5"  Margin="20 0" VerticalAlignment="Center" Background="#222130"
+                         BorderBrush="Transparent" Padding="10 0" x:Name="accountDetailsPassword" MaxLength="100" PasswordChanged="updateSaveIcon"></PasswordBox>
+                <TextBox Height="50" FontSize="32" Grid.Column="1" Foreground="#b3b8c5"  Margin="20 0" VerticalAlignment="Center" Background="#222130"
+                         BorderBrush="Transparent" Padding="10 0" x:Name="accountDetailsPasswordText" MaxLength="100" Visibility="Hidden" TextChanged="updateSaveIcon"></TextBox>
+                <CheckBox Width="16" Height="16" Grid.Column="2" FontSize="36" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" x:Name="accountDetailsPasswordCheckbox"
+                          Checked="passwordCheckbox_Checked" Unchecked="passwordCheckbox_Unchecked">
+                    <CheckBox.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform ScaleX="2" ScaleY="2"/>
+                            <TranslateTransform X="-10"/>
+                        </TransformGroup>
+                    </CheckBox.RenderTransform>
+                </CheckBox>
+                <Button Width="70" Height="50" Grid.Column="3" Style="{StaticResource MaterialDesignRaisedButton}"
+                    materialDesign:ButtonAssist.CornerRadius="5" BorderThickness="2" BorderBrush="#191823"
+                    Background="#292d36" Foreground="#a8aebd" ToolTip="Add Account" RenderTransformOrigin="0.5,0.5" Click="buttonPasswordReset_Click">
+                    <Button.RenderTransform>
+                        <TransformGroup>
+                            <TranslateTransform X="-12"/>
+                        </TransformGroup>
+                    </Button.RenderTransform>
+                    <materialDesign:PackIcon Kind="PasswordReset" Width="32" Height="32" Foreground="#6994bf"/>
+                </Button>
+            </Grid>
+            <!--Account Notes-->
+            <Grid Height="270" Margin="0 10 0 0" Background="#191823" Width="1100">
+                <TextBox Height="210" FontSize="20" Grid.Column="0" Foreground="#a8aebd" Margin="20 0 20 15" VerticalAlignment="Bottom" TextAlignment="Left" TextWrapping="Wrap" 
+                         MaxLines="1000" AcceptsReturn="True" AcceptsTab="True" VerticalScrollBarVisibility="Auto" CaretBrush="#c3c3c3" Background="#222130"
+                         BorderBrush="Transparent" Padding="10 0" x:Name="accountDetailsNotes"  MaxLength="1048576" TextChanged="updateSaveIcon"></TextBox>
+                <TextBlock Height="32" FontSize="28" Grid.Column="0" Foreground="#b3b8c5" Margin="20 0" VerticalAlignment="Top" TextAlignment="Left" RenderTransformOrigin="0.5,0.5">
+                    <TextBlock.RenderTransform>
+                        <TransformGroup>
+                            <TranslateTransform Y="5"/>
+                        </TransformGroup>
+                    </TextBlock.RenderTransform>
+                Notes
+                </TextBlock>
+            </Grid>
+            <!--Account Delete-->
+
+            <StackPanel Orientation="Horizontal" Width="1120" HorizontalAlignment="Right">
+
+                <materialDesign:PackIcon Kind="ContentSaveAlert" Width="64" Height="64" Foreground="#e6b450" Margin="20 0 125 0" VerticalAlignment="Center" ToolTip="Not Saved" x:Name="saveWarning" Visibility="Hidden"/>
+
+                <Button Width="400" Height="60" Margin="30 10" Style="{StaticResource MaterialDesignRaisedButton}"
+                        materialDesign:ButtonAssist.CornerRadius="10" BorderThickness="2" BorderBrush="#191823"
+                        Background="#292d36" Foreground="#a8aebd" ToolTip="Load Backup" HorizontalAlignment="Left" Click="accountSave_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="ContentSave" Width="50" Height="50" Foreground="#91b362" Margin="0"/>
+                        <TextBlock TextAlignment="Center" FontSize="24" Height="32">Apply</TextBlock>
+                    </StackPanel>
+                </Button>
+
+                <Button Width="400" Height="60" Margin="30 10" Style="{StaticResource MaterialDesignRaisedButton}"
+                        materialDesign:ButtonAssist.CornerRadius="10" BorderThickness="2" BorderBrush="#e91e63"
+                        Background="#f07178" Foreground="#2a2a2a" ToolTip="Load Backup" HorizontalAlignment="Left" Click="accountDelete_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="Delete" Width="50" Height="50" Foreground="#2a2a2a" Margin="0"/>
+                        <TextBlock TextAlignment="Center" FontSize="24" Height="32">Delete Account</TextBlock>
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Window>
