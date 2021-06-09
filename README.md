@@ -1,5 +1,5 @@
 # Hash Guard
-![Logo](https://ibb.co/TbzPRYp)
+![Logo](https://i.ibb.co/D83wkzs/password-manager-logo.png)
 #### Description
  My own password manager made with my custom encryption algorithm (PDEA)
 
