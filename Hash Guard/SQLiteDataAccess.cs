@@ -22,7 +22,7 @@ namespace Password_Manager
                     user.encryptedData = output.First().encryptedData == null ? null : output.First().encryptedData.ToArray();
                     return user;
                 }
-                catch (Exception e)
+                catch (Exception e)//fuck you e
                 {
                     return new UserClass();
                 }

@@ -1,18 +1,14 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Security.Cryptography;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.IO;
-using System.Security.Cryptography;
 
 namespace Password_Manager
 {
@@ -32,6 +28,8 @@ namespace Password_Manager
             welcomeText.Text = user.username + "'s Accounts";
             if (user.encryptedData != null)
                 RefreshAccounts(true);
+            else
+                totalAccountsText.Text = $"you have {accountManager.accounts.Count} account{(accountManager.accounts.Count == 1 ? "" : 's')}";
         }
         public void RefreshAccounts(bool fromStart)
         {
@@ -55,6 +53,7 @@ namespace Password_Manager
             {
                 LoadAccount(item.Key, item.Value.Count);
             }
+            totalAccountsText.Text = $"you have {accountManager.accounts.Count} account{(accountManager.accounts.Count == 1 ? "" : 's')}";
         }
         public void LoadAccount(string accountName, int amount)
         {
@@ -136,6 +135,7 @@ namespace Password_Manager
                 case "Bitbucket": return MaterialDesignThemes.Wpf.PackIconKind.Bitbucket;
                 case "Bitcoin": return MaterialDesignThemes.Wpf.PackIconKind.Bitcoin;
                 case "Blackmesa": return MaterialDesignThemes.Wpf.PackIconKind.BlackMesa;
+                case "Blend Swap": return MaterialDesignThemes.Wpf.PackIconKind.BlenderSoftware;
                 case "Blender": return MaterialDesignThemes.Wpf.PackIconKind.BlenderSoftware;
                 case "Blogger": return MaterialDesignThemes.Wpf.PackIconKind.Blogger;
                 case "Bootstrap": return MaterialDesignThemes.Wpf.PackIconKind.Bootstrap;
@@ -179,6 +179,7 @@ namespace Password_Manager
                 case "Hulu": return MaterialDesignThemes.Wpf.PackIconKind.Hulu;
                 case "Humble Bundle": return MaterialDesignThemes.Wpf.PackIconKind.HumbleBundle;
                 case "Instagram": return MaterialDesignThemes.Wpf.PackIconKind.Instagram;
+                case "Ifunny": return MaterialDesignThemes.Wpf.PackIconKind.Smiley;
                 case "Iobroker": return MaterialDesignThemes.Wpf.PackIconKind.Iobroker;
                 case "Jabber": return MaterialDesignThemes.Wpf.PackIconKind.Jabber;
                 case "Jira": return MaterialDesignThemes.Wpf.PackIconKind.Jira;
@@ -186,6 +187,7 @@ namespace Password_Manager
                 case "Kodi": return MaterialDesignThemes.Wpf.PackIconKind.Kodi;
                 case "Kubernetes": return MaterialDesignThemes.Wpf.PackIconKind.Kubernetes;
                 case "Lastpass": return MaterialDesignThemes.Wpf.PackIconKind.Lastpass;
+                case "Linked In": return MaterialDesignThemes.Wpf.PackIconKind.Linkedin;
                 case "LinkedIn": return MaterialDesignThemes.Wpf.PackIconKind.Linkedin;
                 case "Linux": return MaterialDesignThemes.Wpf.PackIconKind.Linux;
                 case "Litecoin": return MaterialDesignThemes.Wpf.PackIconKind.Litecoin;
@@ -254,7 +256,7 @@ namespace Password_Manager
             AccountsListStackPanel.Visibility = Visibility.Hidden;
             AccountDetailsStackPanel.Visibility = Visibility.Visible;
 
-            accountManager.currentAcount = new Account("","","","","","");
+            accountManager.currentAcount = new Account("", "", "", "", "", "");
 
             accountManager.currentAcount.uuid = CreateUUID();
 
@@ -279,8 +281,21 @@ namespace Password_Manager
             accountDetailsEmail.Text = accountManager.currentAcount.email;
             accountDetailsUsername.Text = accountManager.currentAcount.username;
             accountDetailsPassword.Password = accountManager.currentAcount.password;
+            accountDetailsNotes.Text = accountManager.currentAcount.notes;
             accountDetailsPassword.PasswordChar = '•';
             accountDetailsPasswordText.Visibility = Visibility.Hidden;
+
+            if (!accountManager.currentAcount.favorite)
+            {
+                favoriteIcon.Tag = "unckecked";
+                favoriteIcon.Foreground = (Brush)new BrushConverter().ConvertFromString("#440011");
+            }
+            else
+            {
+                favoriteIcon.Tag = "checked";
+                favoriteIcon.Foreground = (Brush)new BrushConverter().ConvertFromString("#ff4466");
+            }
+
         }
         public string CreateUUID()
         {
@@ -290,16 +305,73 @@ namespace Password_Manager
         }
         private void buttonSaveBackup_Click(object sender, RoutedEventArgs e)
         {
-            
+            Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
+            dlg.Title = "Save Backup";
+            dlg.Filter = "db files (*.db)|*.db|All files (*.*)|*.*";
+            dlg.FileName = "Backup.db";
+            dlg.FilterIndex = 2;
+            dlg.RestoreDirectory = true;
+            Nullable<bool> result = dlg.ShowDialog();
+            if (result == true)
+            {
+                try
+                {
+                    File.Copy("user-data.db", dlg.FileName, true);
+                }
+                catch (IOException iox)
+                {
+                    Console.WriteLine(iox.Message);
+                }
+            }
         }
         private void buttonLoadBackup_Click(object sender, RoutedEventArgs e)
         {
-            
+            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+            dlg.Title = "Load Backup";
+            dlg.Filter = "db files (*.db)|*.db|All files (*.*)|*.*";
+            dlg.FilterIndex = 2;
+            dlg.RestoreDirectory = true;
+            Nullable<bool> result = dlg.ShowDialog();
+            if (result == true)
+            {
+                try
+                {
+                    File.Copy(dlg.FileName, "user-data.db", true);
+
+                    UserClass checkingUser = SQLiteDataAccess.LoadUser(user.username);
+
+                    if (checkingUser.username == null)
+                    {
+                        LoginScreen login = new LoginScreen();
+                        login.Show();
+                        this.Close();
+                    }
+                    else
+                    {
+                        user = checkingUser;
+                        if (user.encryptedData != null)
+                            RefreshAccounts(true);
+                        else
+                            totalAccountsText.Text = $"you have {accountManager.accounts.Count} account{(accountManager.accounts.Count == 1 ? "" : 's')}";
+                    }
+                    
+                }
+                catch (IOException iox)
+                {
+                    Console.WriteLine(iox.Message);
+                }
+            }
+        }
+        private void buttonLogout_Click(object sender, RoutedEventArgs e)
+        {
+            LoginScreen login = new LoginScreen();
+            login.Show();
+            this.Close();
         }
         private void accountSave_Click(object sender, RoutedEventArgs e)
         {
             bool saved = false;
-            foreach(Account acc in accountManager.accounts)
+            foreach (Account acc in accountManager.accounts)
             {
                 if (acc.uuid == accountManager.currentAcount.uuid)
                 {
@@ -309,6 +381,7 @@ namespace Password_Manager
                     acc.username = accountDetailsUsername.Text;
                     acc.password = accountDetailsPassword.Password;
                     acc.notes = accountDetailsNotes.Text;
+                    acc.favorite = ((string)favoriteIcon.Tag == "checked");
                     accountManager.currentAcount = acc;
                     saved = true;
                 }
@@ -321,6 +394,7 @@ namespace Password_Manager
                 accountManager.currentAcount.username = accountDetailsUsername.Text;
                 accountManager.currentAcount.password = accountDetailsPassword.Password;
                 accountManager.currentAcount.notes = accountDetailsNotes.Text;
+                accountManager.currentAcount.favorite = ((string)favoriteIcon.Tag == "checked");
                 accountManager.accounts.Add(accountManager.currentAcount);
             }
             updateSaveIconLocal();
@@ -350,7 +424,7 @@ namespace Password_Manager
             Button button = sender as Button;
             accountsStackPanel.Children.Clear();
             int[] indexs = accountManager.accountsAmounts[button.Tag.ToString()].ToArray();
-            foreach(int i in indexs)
+            foreach (int i in indexs)
             {
                 LoadInnerAccount(button.Tag.ToString(), i);
             }
@@ -372,6 +446,18 @@ namespace Password_Manager
             accountDetailsNotes.Text = accountManager.currentAcount.notes;
             accountDetailsPassword.PasswordChar = '•';
             accountDetailsPasswordText.Visibility = Visibility.Hidden;
+
+            if (!accountManager.currentAcount.favorite)
+            {
+                favoriteIcon.Tag = "unckecked";
+                favoriteIcon.Foreground = (Brush)new BrushConverter().ConvertFromString("#440011");
+            }
+            else
+            {
+                favoriteIcon.Tag = "checked";
+                favoriteIcon.Foreground = (Brush)new BrushConverter().ConvertFromString("#ff4466");
+            }
+
         }
         private void passwordCheckbox_Checked(object sender, RoutedEventArgs e)
         {
@@ -396,7 +482,7 @@ namespace Password_Manager
             Random r = new Random(seed);
 
             StringBuilder passwordBuilder = new StringBuilder((int)30);
-            char[] allowableChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789¬`!\"£$€%^&*()-=_+[]{};'#:@~,./<>?\\|¦áéúíóÁÉÚÍÓ".ToCharArray();
+            char[] allowableChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!\"£$%^&*()_+-=[]{}'#@~./>?,<\\€".ToCharArray();
 
             for (int i = 0; i < 30; i++)
             {
@@ -408,6 +494,10 @@ namespace Password_Manager
             string newPassword = passwordBuilder.ToString();
             accountDetailsPassword.Password = newPassword;
             accountDetailsPasswordText.Text = newPassword;
+        }
+        private void buttonPasswordCopy_Click(object sender, RoutedEventArgs e)
+        {
+            Clipboard.SetText(accountDetailsPassword.Password);
         }
         public void LoadInnerAccount(string accountName, int index)
         {
@@ -483,12 +573,13 @@ namespace Password_Manager
         }
         private bool CheckIfChanged()
         {
-            if(accountDetailsAccountName.Text != accountManager.currentAcount.name) return false;
-            if(accountDetailsUrl.Text != accountManager.currentAcount.url) return false;
-            if(accountDetailsEmail.Text != accountManager.currentAcount.email) return false;
-            if(accountDetailsUsername.Text != accountManager.currentAcount.username) return false;
-            if(accountDetailsPassword.Password != accountManager.currentAcount.password) return false;
+            if (accountDetailsAccountName.Text != accountManager.currentAcount.name) return false;
+            if (accountDetailsUrl.Text != accountManager.currentAcount.url) return false;
+            if (accountDetailsEmail.Text != accountManager.currentAcount.email) return false;
+            if (accountDetailsUsername.Text != accountManager.currentAcount.username) return false;
+            if (accountDetailsPassword.Password != accountManager.currentAcount.password) return false;
             if (accountDetailsNotes.Text != accountManager.currentAcount.notes) return false;
+            if (((string)favoriteIcon.Tag == "checked") != accountManager.currentAcount.favorite) return false;
             return true;
         }
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)
@@ -506,7 +597,7 @@ namespace Password_Manager
         {
             BinaryFormatter bf = new BinaryFormatter();
             MemoryStream stream = new MemoryStream();
-            
+
             bf.Serialize(stream, accountManager);
             byte[] data = stream.ToArray();
 
@@ -517,6 +608,21 @@ namespace Password_Manager
             user.encryptedData = encryptedStream;
 
             SQLiteDataAccess.SaveUser(user, true);
+        }
+        private void switchFavorited(object sender, RoutedEventArgs e)
+        {
+            bool favorited = ((string)favoriteIcon.Tag == "checked");
+            if (favorited)
+            {
+                favoriteIcon.Tag = "unckecked";
+                favoriteIcon.Foreground = (Brush)new BrushConverter().ConvertFromString("#440011");
+            }
+            else
+            {
+                favoriteIcon.Tag = "checked";
+                favoriteIcon.Foreground = (Brush)new BrushConverter().ConvertFromString("#ff4466");
+            }
+            updateSaveIconLocal();
         }
     }
 }

@@ -1,0 +1,15 @@
+F:\Password Manager FINAL\Password Manager\bin\Release\netcoreapp3.1\publish\Password Manager.exe
+F:\Password Manager FINAL\Password Manager\bin\Release\netcoreapp3.1\publish\user-data.db
+F:\Password Manager FINAL\Password Manager\bin\Release\netcoreapp3.1\publish\Password Manager.dll
+F:\Password Manager FINAL\Password Manager\bin\Release\netcoreapp3.1\publish\Password Manager.deps.json
+F:\Password Manager FINAL\Password Manager\bin\Release\netcoreapp3.1\publish\Password Manager.runtimeconfig.json
+F:\Password Manager FINAL\Password Manager\bin\Release\netcoreapp3.1\publish\Password Manager.dll.config
+F:\Password Manager FINAL\Password Manager\bin\Release\netcoreapp3.1\publish\Password Manager.pdb
+F:\Password Manager FINAL\Password Manager\bin\Release\netcoreapp3.1\publish\Dapper.dll
+F:\Password Manager FINAL\Password Manager\bin\Release\netcoreapp3.1\publish\MaterialDesignColors.dll
+F:\Password Manager FINAL\Password Manager\bin\Release\netcoreapp3.1\publish\MaterialDesignThemes.Wpf.dll
+F:\Password Manager FINAL\Password Manager\bin\Release\netcoreapp3.1\publish\System.Data.SQLite.dll
+F:\Password Manager FINAL\Password Manager\bin\Release\netcoreapp3.1\publish\runtimes\linux-x64\native\SQLite.Interop.dll
+F:\Password Manager FINAL\Password Manager\bin\Release\netcoreapp3.1\publish\runtimes\osx-x64\native\SQLite.Interop.dll
+F:\Password Manager FINAL\Password Manager\bin\Release\netcoreapp3.1\publish\runtimes\win-x64\native\SQLite.Interop.dll
+F:\Password Manager FINAL\Password Manager\bin\Release\netcoreapp3.1\publish\runtimes\win-x86\native\SQLite.Interop.dll

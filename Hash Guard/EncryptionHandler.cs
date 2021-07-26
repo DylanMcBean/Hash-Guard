@@ -318,8 +318,8 @@ namespace Password_Manager
             int blockAmount = -1;
             int bytesRead = 0;
             int totalBlocks = encrypting ? (int)Math.Ceiling((byte_array.Length + 1) / (float)block_size_bytes) : ((byte_array.Length - 80) / block_size_bytes);
-            byte extraData = encrypting ? (byte)(block_size_bytes - (byte_array.Length % block_size_bytes)) : 0;
-            int bufferSize = Math.Min(65536, totalBlocks) * block_size_bytes;
+            byte extraData = (byte)(encrypting ? (block_size_bytes - (byte_array.Length % block_size_bytes)) : 0);
+            int bufferSize = Math.Min(8388608, totalBlocks) * block_size_bytes;
             byte[] buffer = new byte[bufferSize];
             byte[] sentence = new byte[block_size_bytes];
             byte[] outputArray = new byte[totalBlocks * block_size_bytes + (encrypting ? 80 : 0)];

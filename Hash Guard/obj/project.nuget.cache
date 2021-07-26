@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "/y7zL1mq4E13MevOQ2vjWKl7A3In5QOUWdXL9wlZK+ourEmhtiOgPPfqWXB/YZ+GPU5AhnVvRJG7L0ARroZ1YQ==",
+  "dgSpecHash": "51Cy+rRNIcNcGxzBTNfbfSkRi4oNjih6su46JpcqRPXohniospDHQZWRUGL/zu6o7iIl6NKMWLjOfIVmPS5axw==",
   "success": true,
   "projectFilePath": "F:\\Password Manager FINAL\\Password Manager\\Password Manager.csproj",
   "expectedPackageFiles": [
@@ -9,8 +9,7 @@
     "C:\\Users\\User\\.nuget\\packages\\materialdesignthemes\\4.1.0\\materialdesignthemes.4.1.0.nupkg.sha512",
     "C:\\Users\\User\\.nuget\\packages\\stub.system.data.sqlite.core.netstandard\\1.0.114.2\\stub.system.data.sqlite.core.netstandard.1.0.114.2.nupkg.sha512",
     "C:\\Users\\User\\.nuget\\packages\\system.data.sqlite.core\\1.0.114.2\\system.data.sqlite.core.1.0.114.2.nupkg.sha512",
-    "C:\\Users\\User\\.nuget\\packages\\system.reflection.emit.lightweight\\4.7.0\\system.reflection.emit.lightweight.4.7.0.nupkg.sha512",
-    "C:\\Users\\User\\.nuget\\packages\\microsoft.netcore.app.host.win-x86\\3.1.13\\microsoft.netcore.app.host.win-x86.3.1.13.nupkg.sha512"
+    "C:\\Users\\User\\.nuget\\packages\\system.reflection.emit.lightweight\\4.7.0\\system.reflection.emit.lightweight.4.7.0.nupkg.sha512"
   ],
   "logs": []
 }

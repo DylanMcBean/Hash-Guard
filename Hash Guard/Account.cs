@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Text.RegularExpressions;
 
 namespace Password_Manager
@@ -8,7 +6,7 @@ namespace Password_Manager
     [Serializable()]
     public class Account
     {
-        public string name {get; set;}
+        public string name { get; set; }
         public string url { get; set; }
         public string email { get; set; }
         public string username { get; set; }
@@ -22,6 +20,7 @@ namespace Password_Manager
             }
         }
         public string uuid { get; set; }
+        public bool favorite;
 
         public Account(string name, string url, string email, string username, string password, string notes)
         {
@@ -30,13 +29,14 @@ namespace Password_Manager
             this.username = username;
             this.password = password;
             this.notes = notes;
+            this.favorite = false;
         }
 
         private string getMainAccountName(string accountName)
         {
             accountName = accountName.ToLower();
             accountName = Regex.Replace(accountName, @"\b(\w)", m => m.Value.ToUpper());
-            accountName = Regex.Replace(accountName, @"(\sAccount|Account\s)","");
+            accountName = Regex.Replace(accountName, @"(\sAccount|Account\s)", "");
             accountName = Regex.Replace(accountName, @"(\s\d+|\d+\s)", "");
 
             return accountName;

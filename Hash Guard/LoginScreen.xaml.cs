@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Security.Cryptography;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Input;
@@ -42,9 +41,9 @@ namespace Password_Manager
             }
             else
             {
-                MainWindow main = new MainWindow(checkingUser,passwordField.Password);
+                MainWindow main = new MainWindow(checkingUser, passwordField.Password);
                 main.Show();
-                Application.Current.Windows[0].Hide();
+                this.Close();
             }
 
         }
@@ -73,7 +72,7 @@ namespace Password_Manager
                     SQLiteDataAccess.SaveUser(newUser, false);
                     MainWindow main = new MainWindow(newUser, passwordField.Password);
                     main.Show();
-                    Application.Current.Windows[0].Hide();
+                    this.Close();
                 }
                 catch (Exception)
                 {
