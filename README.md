@@ -23,7 +23,10 @@
 ***
 ## Releases
 - **Prototype 1**: [Here](https://github.com/DylanMcBean/Hash-Guard/releases/tag/p1.0)
-  - This is the first prototype build of Hash Guard
+  - This is the first prototype build of Hash Guard.
+- **Update 1**: [Here](https://github.com/DylanMcBean/Hash-Guard/releases/tag/v1.2)
+  - Gave functionality to the Save/Load buttons for backup so the user can create backups incase of lose of data.
+  - Changed text size of text showing who's account is currently active so it no longer cuts of characters half way.
 
 ## Change-Log
 **To Be Done**
