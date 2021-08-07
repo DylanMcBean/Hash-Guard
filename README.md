@@ -31,6 +31,3 @@
   - Gave each field its own copy button to make it much easier to copy the text from inside them without needing to select it all
   - Added a search bar that can make it easier and quicker to find accounts with specific information in them.  
     The only field this does not search in is the password field but all other fields can be searched
-
-## Change-Log
-**To Be Done**
