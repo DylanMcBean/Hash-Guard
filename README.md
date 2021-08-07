@@ -21,7 +21,7 @@
 - **Issues**: Issues
   - If you have any issues or any suggestions that you wish to be implimented into Hash Guard you can leave them in the issues panel and we will look over them and gauge if we find these changes appripriate to be implimented.
 ***
-## Releases
+## Releases [Most Recent](https://github.com/DylanMcBean/Hash-Guard/releases/tag/V1.21)
 - **Prototype 1**: [Here](https://github.com/DylanMcBean/Hash-Guard/releases/tag/p1.0)
   - This is the first prototype build of Hash Guard.
 - **Update 1**: [Here](https://github.com/DylanMcBean/Hash-Guard/releases/tag/v1.2)
