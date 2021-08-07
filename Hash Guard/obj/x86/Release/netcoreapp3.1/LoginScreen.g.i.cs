@@ -112,7 +112,7 @@ namespace Password_Manager {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/Password Manager;component/loginscreen.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/HashGuard;component/loginscreen.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\LoginScreen.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

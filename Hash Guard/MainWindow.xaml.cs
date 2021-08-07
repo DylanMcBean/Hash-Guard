@@ -33,27 +33,34 @@ namespace Password_Manager
         }
         public void RefreshAccounts(bool fromStart)
         {
-            accountsStackPanel.Children.Clear();
-
-            if (fromStart)
+            if (searchField.Text != "")
             {
-                BinaryFormatter bf = new BinaryFormatter();
-
-                EncryptionHandler encryption = new EncryptionHandler();
-
-                byte[] decryptedStream = encryption.mainLoop(false, userPass, 8, user.encryptedData);
-
-                MemoryStream stream = new MemoryStream(decryptedStream);
-                stream.Position = 0;
-
-                accountManager = (AccountManager)bf.Deserialize(stream);
+                searchFieldLookup(searchField.Text);
             }
-            accountManager.ProcessAccounts();
-            foreach (KeyValuePair<string, List<int>> item in accountManager.accountsAmounts)
+            else
             {
-                LoadAccount(item.Key, item.Value.Count);
+                accountsStackPanel.Children.Clear();
+
+                if (fromStart)
+                {
+                    BinaryFormatter bf = new BinaryFormatter();
+
+                    EncryptionHandler encryption = new EncryptionHandler();
+
+                    byte[] decryptedStream = encryption.mainLoop(false, userPass, 8, user.encryptedData);
+
+                    MemoryStream stream = new MemoryStream(decryptedStream);
+                    stream.Position = 0;
+
+                    accountManager = (AccountManager)bf.Deserialize(stream);
+                }
+                accountManager.ProcessAccounts();
+                foreach (KeyValuePair<string, List<int>> item in accountManager.accountsAmounts)
+                {
+                    LoadAccount(item.Key, item.Value.Count);
+                }
+                totalAccountsText.Text = $"you have {accountManager.accounts.Count} account{(accountManager.accounts.Count == 1 ? "" : 's')}";
             }
-            totalAccountsText.Text = $"you have {accountManager.accounts.Count} account{(accountManager.accounts.Count == 1 ? "" : 's')}";
         }
         public void LoadAccount(string accountName, int amount)
         {
@@ -495,9 +502,13 @@ namespace Password_Manager
             accountDetailsPassword.Password = newPassword;
             accountDetailsPasswordText.Text = newPassword;
         }
-        private void buttonPasswordCopy_Click(object sender, RoutedEventArgs e)
+        private void buttonCopy_Click(object sender, RoutedEventArgs e)
         {
-            Clipboard.SetText(accountDetailsPassword.Password);
+            Grid senderGrid = (sender as Button).Parent as Grid;
+            if ((String)((TextBlock)(senderGrid).Children[0]).Tag == "password")
+                Clipboard.SetText(((PasswordBox)(senderGrid).Children[1]).Password);
+            else
+                Clipboard.SetText(((TextBox)(senderGrid).Children[1]).Text);
         }
         public void LoadInnerAccount(string accountName, int index)
         {
@@ -623,6 +634,30 @@ namespace Password_Manager
                 favoriteIcon.Foreground = (Brush)new BrushConverter().ConvertFromString("#ff4466");
             }
             updateSaveIconLocal();
+        }
+
+        private void searchFieldChanged(object sender, RoutedEventArgs e)
+        {
+            searchFieldLookup(searchField.Text);
+        }
+
+        private void searchFieldLookup(String searchString)
+        {
+            accountsStackPanel.Children.Clear();
+            accountManager.ProcessAccountsSearch(searchString);
+            int accountsSum = 0;
+            foreach (KeyValuePair<string, List<int>> item in accountManager.accountsAmounts)
+            {
+                LoadAccount(item.Key, item.Value.Count);
+                accountsSum += item.Value.Count;
+            }
+            if (searchString != "")
+            {
+                totalAccountsText.Text = $"you have {accountsSum} account{(accountsSum == 1 ? "" : 's')} that matches this search.";
+            } else
+            {
+                totalAccountsText.Text = $"you have {accountManager.accounts.Count} account{(accountManager.accounts.Count == 1 ? "" : 's')}";
+            }
         }
     }
 }

@@ -44,5 +44,29 @@ namespace Password_Manager
                     accountsAmounts[account.mainName].Add(accounts.IndexOf(account));
             }
         }
+
+        public void ProcessAccountsSearch(String searchString)
+        {
+            accountsAmounts = new Dictionary<string, List<int>>();
+
+            accounts.Sort(delegate (Account x, Account y)
+            {
+                return $"{(x.favorite ? '0' : '1') + x.name + x.username}".CompareTo($"{(y.favorite ? '0' : '1') + y.name + y.username}");
+            });
+
+            foreach (Account account in accounts)
+            {
+                if (account.name.Contains(searchString) || account.url.Contains(searchString) || account.email.Contains(searchString) || account.username.Contains(searchString) || account.notes.Contains(searchString))
+                {
+                    if (!accountsAmounts.Keys.Contains(account.mainName))
+                    {
+                        accountsAmounts[account.mainName] = new List<int>();
+                        accountsAmounts[account.mainName].Add(accounts.IndexOf(account));
+                    }
+                    else
+                        accountsAmounts[account.mainName].Add(accounts.IndexOf(account));
+                }
+            }
+        }
     }
 }

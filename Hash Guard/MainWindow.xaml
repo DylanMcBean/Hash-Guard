@@ -57,6 +57,11 @@
                         <TextBlock TextAlignment="Center" FontSize="24" Height="32">Add Account</TextBlock>
                     </StackPanel>
                 </Button>
+
+                <StackPanel Orientation="Horizontal" Margin="10" Height="30">
+                    <materialDesign:PackIcon Kind="Search" Width="32" Height="32" Foreground="#b3b8c5"/>
+                    <TextBox x:Name="searchField" Margin="10 0" materialDesign:HintAssist.Hint="Search" Foreground="#b3b8c5" Width="190" FontSize="16" TextChanged="searchFieldChanged"/>
+                </StackPanel>
             </StackPanel>
 
 
@@ -103,31 +108,64 @@
             <Grid Height="60" Margin="0 10 0 0" Background="#191823" Width="1100">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="3*"/>
-                    <ColumnDefinition Width="10*"/>
+                    <ColumnDefinition Width="9*"/>
+                    <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <TextBlock Height="50" FontSize="32" Grid.Column="0" Foreground="#b3b8c5" Margin="20 0" VerticalAlignment="Center" TextAlignment="Right">Url</TextBlock>
                 <TextBox Height="50" FontSize="32" Grid.Column="1" Foreground="#b3b8c5"  Margin="20 0" VerticalAlignment="Center" TextAlignment="Left" Background="#222130"
                          BorderBrush="Transparent" Padding="10 0" x:Name="accountDetailsUrl" MaxLength="250" TextChanged="updateSaveIcon"></TextBox>
+                <Button Width="70" Height="50" Grid.Column="3" Style="{StaticResource MaterialDesignRaisedButton}"
+                    materialDesign:ButtonAssist.CornerRadius="5" BorderThickness="2" BorderBrush="#191823"
+                    Background="#292d36" Foreground="#a8aebd" ToolTip="Copy URL" RenderTransformOrigin="0.5,0.5" Click="buttonCopy_Click">
+                    <Button.RenderTransform>
+                        <TransformGroup>
+                            <TranslateTransform X="-12"/>
+                        </TransformGroup>
+                    </Button.RenderTransform>
+                    <materialDesign:PackIcon Kind="ContentCopy" Width="32" Height="32" Foreground="#6994bf"/>
+                </Button>
             </Grid>
             <!--Account Email-->
             <Grid Height="60" Margin="0 10 0 0" Background="#191823" Width="1100">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="3*"/>
-                    <ColumnDefinition Width="10*"/>
+                    <ColumnDefinition Width="9*"/>
+                    <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <TextBlock Height="50" FontSize="32" Grid.Column="0" Foreground="#b3b8c5" Margin="20 0" VerticalAlignment="Center" TextAlignment="Right">Email</TextBlock>
                 <TextBox Height="50" FontSize="32" Grid.Column="1" Foreground="#b3b8c5"  Margin="20 0" VerticalAlignment="Center" TextAlignment="Left" Background="#222130"
                          BorderBrush="Transparent" Padding="10 0" x:Name="accountDetailsEmail" MaxLength="254" TextChanged="updateSaveIcon"></TextBox>
+                <Button Width="70" Height="50" Grid.Column="3" Style="{StaticResource MaterialDesignRaisedButton}"
+                    materialDesign:ButtonAssist.CornerRadius="5" BorderThickness="2" BorderBrush="#191823"
+                    Background="#292d36" Foreground="#a8aebd" ToolTip="Copy Email" RenderTransformOrigin="0.5,0.5" Click="buttonCopy_Click">
+                    <Button.RenderTransform>
+                        <TransformGroup>
+                            <TranslateTransform X="-12"/>
+                        </TransformGroup>
+                    </Button.RenderTransform>
+                    <materialDesign:PackIcon Kind="ContentCopy" Width="32" Height="32" Foreground="#6994bf"/>
+                </Button>
             </Grid>
             <!--Account Username-->
             <Grid Height="60" Margin="0 10 0 0" Background="#191823" Width="1100">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="3*"/>
-                    <ColumnDefinition Width="10*"/>
+                    <ColumnDefinition Width="9*"/>
+                    <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <TextBlock Height="50" FontSize="32" Grid.Column="0" Foreground="#b3b8c5" Margin="20 0" VerticalAlignment="Center" TextAlignment="Right">Username</TextBlock>
                 <TextBox Height="50" FontSize="32" Grid.Column="1" Foreground="#b3b8c5"  Margin="20 0" VerticalAlignment="Center" TextAlignment="Left" Background="#222130"
                          BorderBrush="Transparent" Padding="10 0" x:Name="accountDetailsUsername" MaxLength="50" TextChanged="updateSaveIcon"></TextBox>
+                <Button Width="70" Height="50" Grid.Column="3" Style="{StaticResource MaterialDesignRaisedButton}"
+                    materialDesign:ButtonAssist.CornerRadius="5" BorderThickness="2" BorderBrush="#191823"
+                    Background="#292d36" Foreground="#a8aebd" ToolTip="Copy Username" RenderTransformOrigin="0.5,0.5" Click="buttonCopy_Click">
+                    <Button.RenderTransform>
+                        <TransformGroup>
+                            <TranslateTransform X="-12"/>
+                        </TransformGroup>
+                    </Button.RenderTransform>
+                    <materialDesign:PackIcon Kind="ContentCopy" Width="32" Height="32" Foreground="#6994bf"/>
+                </Button>
             </Grid>
             <!--Account Password-->
             <Grid Height="60" Margin="0 10 0 0" Background="#191823" Width="1100">
@@ -138,7 +176,7 @@
                     <ColumnDefinition Width="2*"/>
                     <ColumnDefinition Width="2*"/>
                 </Grid.ColumnDefinitions>
-                <TextBlock Height="50" FontSize="32" Grid.Column="0" Foreground="#b3b8c5" Margin="20 0" VerticalAlignment="Center" TextAlignment="Right">Password</TextBlock>
+                <TextBlock Height="50" FontSize="32" Grid.Column="0" Foreground="#b3b8c5" Margin="20 0" VerticalAlignment="Center" TextAlignment="Right" Tag="password">Password</TextBlock>
                 <PasswordBox Height="50" FontSize="32" Grid.Column="1" Foreground="#b3b8c5"  Margin="20 0" VerticalAlignment="Center" Background="#222130"
                          BorderBrush="Transparent" Padding="10 0" x:Name="accountDetailsPassword" MaxLength="100" PasswordChanged="updateSaveIcon"></PasswordBox>
                 <TextBox Height="50" FontSize="32" Grid.Column="1" Foreground="#b3b8c5"  Margin="20 0" VerticalAlignment="Center" Background="#222130"
@@ -163,8 +201,9 @@
                     <materialDesign:PackIcon Kind="PasswordReset" Width="32" Height="32" Foreground="#6994bf"/>
                 </Button>
                 <Button Width="70" Height="50" Grid.Column="4" Style="{StaticResource MaterialDesignRaisedButton}"
-                    materialDesign:ButtonAssist.CornerRadius="5" BorderThickness="2" BorderBrush="#191823"
-                    Background="#292d36" Foreground="#a8aebd" ToolTip="Copy Password" RenderTransformOrigin="0.5,0.5" Click="buttonPasswordCopy_Click">
+                        materialDesign:ButtonAssist.CornerRadius="5" BorderThickness="2" BorderBrush="#191823"
+                        Background="#292d36" Foreground="#a8aebd" ToolTip="Copy Password" RenderTransformOrigin="0.5,0.5" 
+                        Click="buttonCopy_Click">
                     <Button.RenderTransform>
                         <TransformGroup>
                             <TranslateTransform X="-12"/>

@@ -262,9 +262,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "F:\\Password Manager FINAL\\Password Manager\\Password Manager.csproj",
-      "projectName": "Password Manager",
-      "projectPath": "F:\\Password Manager FINAL\\Password Manager\\Password Manager.csproj",
+      "projectUniqueName": "F:\\Password Manager FINAL\\Password Manager\\HashGuard.csproj",
+      "projectName": "HashGuard",
+      "projectPath": "F:\\Password Manager FINAL\\Password Manager\\HashGuard.csproj",
       "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
       "outputPath": "F:\\Password Manager FINAL\\Password Manager\\obj\\",
       "projectStyle": "PackageReference",

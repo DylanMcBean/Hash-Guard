@@ -47,7 +47,7 @@ namespace Password_Manager {
         /// InitializeComponent
         /// </summary>
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.CodeDom.Compiler.GeneratedCodeAttribute("PresentationBuildTasks", "5.0.4.0")]
+        [System.CodeDom.Compiler.GeneratedCodeAttribute("PresentationBuildTasks", "5.0.8.0")]
         public void InitializeComponent() {
             if (_contentLoaded) {
                 return;
@@ -59,7 +59,7 @@ namespace Password_Manager {
             
             #line default
             #line hidden
-            System.Uri resourceLocater = new System.Uri("/Password Manager;component/app.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/HashGuard;component/app.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\App.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);
@@ -73,7 +73,7 @@ namespace Password_Manager {
         /// </summary>
         [System.STAThreadAttribute()]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.CodeDom.Compiler.GeneratedCodeAttribute("PresentationBuildTasks", "5.0.4.0")]
+        [System.CodeDom.Compiler.GeneratedCodeAttribute("PresentationBuildTasks", "5.0.8.0")]
         public static void Main() {
             Password_Manager.App app = new Password_Manager.App();
             app.InitializeComponent();
