@@ -6,8 +6,6 @@
 ***
 
 ## About
-- **Version:** Prototype
-  - This is a prototype at the moment so if you plan on using it for a password manager then I would be careful when updating to newer versions as there may be some compatability issues. these compatability issues should only be an issue in the prototype stage as when it is in full release I will make sure to keep things backwards compatible
 - **Online Ability**: None
   - Hash Guard does not store anything in the cloud or use the internet in anyway. everything is stored locally on your machine. This ensures that your data cannot be tampered with by anyone expect yourself to help keep all your information safe and secure.
 - **Encryption Type**: Pdea
