@@ -21,6 +21,11 @@
 - **Issues**: Issues
   - If you have any issues or any suggestions that you wish to be implimented into Hash Guard you can leave them in the issues panel and we will look over them and gauge if we find these changes appripriate to be implimented.
 ***
+
+## FAQ
+- **Loading Backup**: How to load backup
+ - to load a backup that you have made if you have lost the original database file, you simply create a new account with the same name and password and then load the backup and it will check if the credentials match and then load them into your account for you.
+
 ## Releases 
 #### [Most Recent](https://github.com/DylanMcBean/Hash-Guard/releases/tag/V1.21)
 - **Prototype 1**: [Here](https://github.com/DylanMcBean/Hash-Guard/releases/tag/p1.0)
