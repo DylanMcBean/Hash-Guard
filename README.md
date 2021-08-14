@@ -24,7 +24,7 @@
 
 ## FAQ
 - **Loading Backup**: How to load backup
-  - to load a backup that you have made if you have lost the original database file, you simply create a new account with the same name and password and then load the backup and it will check if the credentials match and then load them into your account for you.
+  - To load a backup that you have made if you have lost the original database file, you simply create a new account with the same name and password and then load the backup and it will check if the credentials match and then load them into your account for you.
 
 ## Releases 
 #### [Most Recent](https://github.com/DylanMcBean/Hash-Guard/releases/tag/V1.21)
