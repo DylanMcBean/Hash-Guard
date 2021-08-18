@@ -25,17 +25,17 @@
   - To load a backup that you have made if you have lost the original database file, you simply create a new account with the same name and password and then load the backup and it will check if the credentials match and then load them into your account for you.
 
 ## Releases 
-#### [Most Recent](https://github.com/DylanMcBean/Hash-Guard/releases/tag/V3)
+#### [Most Recent](https://github.com/DylanMcBean/Hash-Guard/releases/tag/V1.3)
 - **Prototype 1**: [Here](https://github.com/DylanMcBean/Hash-Guard/releases/tag/p1.0)
   - This is the first prototype build of Hash Guard.
-- **Update 1**: [Here](https://github.com/DylanMcBean/Hash-Guard/releases/tag/v1.2)
+- **Update 1**: [Here](https://github.com/DylanMcBean/Hash-Guard/releases/tag/v1.1)
   - Gave functionality to the Save/Load buttons for backup so the user can create backups incase of lose of data.
   - Changed text size of text showing who's account is currently active so it no longer cuts of characters half way.
-- **Update 1.1**: [Here](https://github.com/DylanMcBean/Hash-Guard/releases/tag/V1.21)
+- **Update 1.1**: [Here](https://github.com/DylanMcBean/Hash-Guard/releases/tag/v1.2)
   - Gave each field its own copy button to make it much easier to copy the text from inside them without needing to select it all
   - Added a search bar that can make it easier and quicker to find accounts with specific information in them.  
     The only field this does not search in is the password field but all other fields can be searched
-- **Update 1.2** [Here](https://github.com/DylanMcBean/Hash-Guard/releases/tag/v3)
+- **Update 1.2** [Here](https://github.com/DylanMcBean/Hash-Guard/releases/tag/v1.3)
   - made searching better with case insensative searching
   - *apply* button and *delete account* button did not have correct tool tip
   - when creating a new account url was never set so it had a null value causing some issues
