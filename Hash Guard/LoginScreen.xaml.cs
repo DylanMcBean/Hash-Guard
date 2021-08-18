@@ -16,7 +16,6 @@ namespace Password_Manager
         {
             InitializeComponent();
         }
-
         private void buttonLogin_Click(object sender, RoutedEventArgs e)
         {
             textBlockWarning.Visibility = Visibility.Hidden;
@@ -47,12 +46,10 @@ namespace Password_Manager
             }
 
         }
-
         private void passwordField_Changed(object sender, RoutedEventArgs e)
         {
             passwordFieldWarning.Visibility = CheckIfPasswordSecure(passwordField.Password) ? Visibility.Hidden : Visibility.Visible;
         }
-
         private void buttonSignUp_Click(object sender, RoutedEventArgs e)
         {
             textBlockWarning.Visibility = Visibility.Hidden;
@@ -90,7 +87,6 @@ namespace Password_Manager
                 textBlockWarning.Visibility = Visibility.Visible;
             }
         }
-
         private string HashPassword(string password)
         {
             //create salt
@@ -108,7 +104,6 @@ namespace Password_Manager
             //return saved password
             return savedPasswordHash;
         }
-
         private bool CompairPassword(string newPassword, string storedPassword)
         {
             //convert stored password back to bytes
@@ -125,7 +120,6 @@ namespace Password_Manager
                     return false;
             return true;
         }
-
         private bool CheckIfPasswordSecure(string password)
         {
             //Password Requirements: length: 12+, lowercase: 2+, uppercase: 2+, numbers: 2+, symbols: 2+
@@ -143,13 +137,11 @@ namespace Password_Manager
 
             return true;
         }
-
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.ChangedButton == MouseButton.Left && e.ButtonState == MouseButtonState.Pressed)
                 DragMove();
         }
-
         private void buttonExit_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();

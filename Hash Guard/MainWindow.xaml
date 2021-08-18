@@ -62,6 +62,16 @@
                     <materialDesign:PackIcon Kind="Search" Width="32" Height="32" Foreground="#b3b8c5"/>
                     <TextBox x:Name="searchField" Margin="10 0" materialDesign:HintAssist.Hint="Search" Foreground="#b3b8c5" Width="190" FontSize="16" TextChanged="searchFieldChanged"/>
                 </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="10" Height="30">
+                    <materialDesign:PackIcon Kind="Sort" Width="32" Height="32" Foreground="#b3b8c5"/>
+                    <ComboBox x:Name="sortBy" Margin="10 0" materialDesign:HintAssist.Hint="Sort" Foreground="#b3b8c5" Width="190" FontSize="16" SelectedIndex="0">
+                        <ComboBoxItem Content="A-Z"/>
+                        <ComboBoxItem Content="Most Visited"/>
+                        <ComboBoxItem Content="Most Recent"/>
+                    </ComboBox>
+                    <TextBox Text="{Binding ElementName=sortBy, Path=Text}" Visibility="Hidden" TextChanged="sortByChanged"/>
+                </StackPanel>
             </StackPanel>
 
 
@@ -235,7 +245,7 @@
 
                 <Button Width="400" Height="60" Margin="30 10" Style="{StaticResource MaterialDesignRaisedButton}"
                         materialDesign:ButtonAssist.CornerRadius="10" BorderThickness="2" BorderBrush="#191823"
-                        Background="#292d36" Foreground="#a8aebd" ToolTip="Load Backup" HorizontalAlignment="Left" Click="accountSave_Click">
+                        Background="#292d36" Foreground="#a8aebd" ToolTip="Apply Changes" HorizontalAlignment="Left" Click="accountSave_Click">
                     <StackPanel Orientation="Horizontal">
                         <materialDesign:PackIcon Kind="ContentSave" Width="50" Height="50" Foreground="#91b362" Margin="0"/>
                         <TextBlock TextAlignment="Center" FontSize="24" Height="32">Apply</TextBlock>
@@ -244,7 +254,7 @@
 
                 <Button Width="400" Height="60" Margin="30 10" Style="{StaticResource MaterialDesignRaisedButton}"
                         materialDesign:ButtonAssist.CornerRadius="10" BorderThickness="2" BorderBrush="#e91e63"
-                        Background="#f07178" Foreground="#2a2a2a" ToolTip="Load Backup" HorizontalAlignment="Left" Click="accountDelete_Click">
+                        Background="#f07178" Foreground="#2a2a2a" ToolTip="Delete Account" HorizontalAlignment="Left" Click="accountDelete_Click">
                     <StackPanel Orientation="Horizontal">
                         <materialDesign:PackIcon Kind="Delete" Width="50" Height="50" Foreground="#2a2a2a" Margin="0"/>
                         <TextBlock TextAlignment="Center" FontSize="24" Height="32">Delete Account</TextBlock>

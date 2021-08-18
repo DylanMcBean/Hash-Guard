@@ -24,14 +24,31 @@ namespace Password_Manager
             accounts = (List<Account>)info.GetValue("Accounts", typeof(List<Account>));
         }
 
-        public void ProcessAccounts()
+        public void ProcessAccounts(String sortBy)
         {
             accountsAmounts = new Dictionary<string, List<int>>();
 
-            accounts.Sort(delegate (Account x, Account y)
+            switch (sortBy) 
             {
-                return $"{(x.favorite ? '0' : '1') + x.name + x.username}".CompareTo($"{(y.favorite ? '0' : '1') + y.name + y.username}");
-            });
+                case "A-Z":
+                    accounts.Sort(delegate (Account x, Account y)
+                    {
+                        return $"{(x.favorite ? '0' : '1') + x.name + x.username}".CompareTo($"{(y.favorite ? '0' : '1') + y.name + y.username}");
+                    });
+                    break;
+                case "Most Recent":
+                    accounts.Sort(delegate (Account x, Account y)
+                    {
+                        return ((y.favorite ? 0 : 1) + y.lastVisited).CompareTo((x.favorite ? 0 : 1) + x.lastVisited);
+                    });
+                    break;
+                case "Most Visited":
+                    accounts.Sort(delegate (Account x, Account y)
+                    {
+                        return ((y.favorite ? 0 : 1) + y.accountVisits).CompareTo((x.favorite ? 0 : 1) + x.accountVisits);
+                    });
+                    break;
+            }
 
             foreach (Account account in accounts)
             {
@@ -45,18 +62,36 @@ namespace Password_Manager
             }
         }
 
-        public void ProcessAccountsSearch(String searchString)
+        public void ProcessAccountsSearch(String searchString, String sortBy)
         {
             accountsAmounts = new Dictionary<string, List<int>>();
 
-            accounts.Sort(delegate (Account x, Account y)
+            switch (sortBy)
             {
-                return $"{(x.favorite ? '0' : '1') + x.name + x.username}".CompareTo($"{(y.favorite ? '0' : '1') + y.name + y.username}");
-            });
+                case "A-Z":
+                    accounts.Sort(delegate (Account x, Account y)
+                    {
+                        return $"{(x.favorite ? '0' : '1') + x.name + x.username}".CompareTo($"{(y.favorite ? '0' : '1') + y.name + y.username}");
+                    });
+                    break;
+                case "Most Recent":
+                    accounts.Sort(delegate (Account x, Account y)
+                    {
+                        return ((y.favorite ? 0 : 1) + y.lastVisited).CompareTo((x.favorite ? 0 : 1) + x.lastVisited);
+                    });
+                    break;
+                case "Most Visited":
+                    accounts.Sort(delegate (Account x, Account y)
+                    {
+                        return ((y.favorite ? 0 : 1) + y.accountVisits).CompareTo((x.favorite ? 0 : 1) + x.accountVisits);
+                    });
+                    break;
+            }
 
+            searchString = searchString.ToLower();
             foreach (Account account in accounts)
             {
-                if (account.name.Contains(searchString) || account.url.Contains(searchString) || account.email.Contains(searchString) || account.username.Contains(searchString) || account.notes.Contains(searchString))
+                if (account.name.ToLower().Contains(searchString) || account.url.ToLower().Contains(searchString) || account.email.ToLower().Contains(searchString) || account.username.ToLower().Contains(searchString) || account.notes.ToLower().Contains(searchString))
                 {
                     if (!accountsAmounts.Keys.Contains(account.mainName))
                     {

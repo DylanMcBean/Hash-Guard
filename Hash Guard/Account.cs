@@ -20,18 +20,23 @@ namespace Password_Manager
             }
         }
         public string uuid { get; set; }
-        public bool favorite;
 
+        public int accountVisits { get; set; }
+        public long lastVisited { get; set; }
+
+        public bool favorite;
         public Account(string name, string url, string email, string username, string password, string notes)
         {
             this.name = name;
             this.email = email;
             this.username = username;
             this.password = password;
+            this.url = url;
             this.notes = notes;
+            this.accountVisits = 0;
+            this.lastVisited = DateTimeOffset.Now.ToUnixTimeSeconds();
             this.favorite = false;
         }
-
         private string getMainAccountName(string accountName)
         {
             accountName = accountName.ToLower();

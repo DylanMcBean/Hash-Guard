@@ -54,7 +54,7 @@ namespace Password_Manager
 
                     accountManager = (AccountManager)bf.Deserialize(stream);
                 }
-                accountManager.ProcessAccounts();
+                accountManager.ProcessAccounts(sortBy.Text);
                 foreach (KeyValuePair<string, List<int>> item in accountManager.accountsAmounts)
                 {
                     LoadAccount(item.Key, item.Value.Count);
@@ -302,7 +302,7 @@ namespace Password_Manager
                 favoriteIcon.Tag = "checked";
                 favoriteIcon.Foreground = (Brush)new BrushConverter().ConvertFromString("#ff4466");
             }
-
+            CheckIfChanged();
         }
         public string CreateUUID()
         {
@@ -453,6 +453,8 @@ namespace Password_Manager
             accountDetailsNotes.Text = accountManager.currentAcount.notes;
             accountDetailsPassword.PasswordChar = '•';
             accountDetailsPasswordText.Visibility = Visibility.Hidden;
+            accountManager.currentAcount.lastVisited = DateTimeOffset.Now.ToUnixTimeSeconds();
+            accountManager.currentAcount.accountVisits += 1;
 
             if (!accountManager.currentAcount.favorite)
             {
@@ -464,7 +466,7 @@ namespace Password_Manager
                 favoriteIcon.Tag = "checked";
                 favoriteIcon.Foreground = (Brush)new BrushConverter().ConvertFromString("#ff4466");
             }
-
+            CheckIfChanged();
         }
         private void passwordCheckbox_Checked(object sender, RoutedEventArgs e)
         {
@@ -635,29 +637,35 @@ namespace Password_Manager
             }
             updateSaveIconLocal();
         }
-
         private void searchFieldChanged(object sender, RoutedEventArgs e)
         {
             searchFieldLookup(searchField.Text);
         }
-
         private void searchFieldLookup(String searchString)
         {
-            accountsStackPanel.Children.Clear();
-            accountManager.ProcessAccountsSearch(searchString);
-            int accountsSum = 0;
-            foreach (KeyValuePair<string, List<int>> item in accountManager.accountsAmounts)
+            if (accountsStackPanel != null)
             {
-                LoadAccount(item.Key, item.Value.Count);
-                accountsSum += item.Value.Count;
+                accountsStackPanel.Children.Clear();
+                accountManager.ProcessAccountsSearch(searchString, sortBy.Text);
+                int accountsSum = 0;
+                foreach (KeyValuePair<string, List<int>> item in accountManager.accountsAmounts)
+                {
+                    LoadAccount(item.Key, item.Value.Count);
+                    accountsSum += item.Value.Count;
+                }
+                if (searchString != "")
+                {
+                    totalAccountsText.Text = $"you have {accountsSum} account{(accountsSum == 1 ? "" : 's')} that matches this search.";
+                }
+                else
+                {
+                    totalAccountsText.Text = $"you have {accountManager.accounts.Count} account{(accountManager.accounts.Count == 1 ? "" : 's')}";
+                }
             }
-            if (searchString != "")
-            {
-                totalAccountsText.Text = $"you have {accountsSum} account{(accountsSum == 1 ? "" : 's')} that matches this search.";
-            } else
-            {
-                totalAccountsText.Text = $"you have {accountManager.accounts.Count} account{(accountManager.accounts.Count == 1 ? "" : 's')}";
-            }
+        }
+        private void sortByChanged(object sender, RoutedEventArgs e)
+        {
+            searchFieldLookup(searchField.Text);
         }
     }
 }
