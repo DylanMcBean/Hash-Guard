@@ -31,7 +31,7 @@
 - **Update 1**: [Here](https://github.com/DylanMcBean/Hash-Guard/releases/tag/v1)
   - Gave functionality to the Save/Load buttons for backup so the user can create backups incase of lose of data.
   - Changed text size of text showing who's account is currently active so it no longer cuts of characters half way.
-- **Update 1.1**: [Here](https://github.com/DylanMcBean/Hash-Guard/releases/tag/v2)
+- **Update 1.1**: [Here](https://github.com/DylanMcBean/Hash-Guard/releases/tag/V2)
   - Gave each field its own copy button to make it much easier to copy the text from inside them without needing to select it all
   - Added a search bar that can make it easier and quicker to find accounts with specific information in them.  
     The only field this does not search in is the password field but all other fields can be searched
